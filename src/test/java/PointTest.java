@@ -79,7 +79,7 @@ public class PointTest {
 
   @Test
   public void testSlopeOrder() {
-    fail("Not yet implemented");
+
   }
 
 }

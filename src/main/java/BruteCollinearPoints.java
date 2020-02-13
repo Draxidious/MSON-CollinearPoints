@@ -12,18 +12,37 @@
  *
  *************************************************************************/
 public class BruteCollinearPoints {
-   
-  public BruteCollinearPoints(Point[] points) {
-     // finds all line segments containing 4 points
-   }
-   
-   public int numberOfSegments() {
-     // the number of line segments
-     return 0;
-   }
-   
-   public LineSegment[] segments() {
-     // the line segments
-     return null;
-   }
+    private int lineSegs = 0;
+    private LineSegment[] lineSegCoords;
+
+    public BruteCollinearPoints(Point[] points) {
+        lineSegCoords = new LineSegment[points.length];
+        int index = 0;
+        for (int p = 0; p < points.length; p++) {
+            for (int q = p + 1; q < points.length; q++) {
+                for (int r = q + 1; r < points.length; r++) {
+                    for (int s = r + 1; s < points.length; s++) {
+                        if ((points[p].slopeTo(points[q]) == points[p].slopeTo(points[r]))
+                                && (points[p].slopeTo(points[q]) == points[p].slopeTo(points[s])
+                                && ((points[p].slopeTo(points[r]) == (points[p].slopeTo(points[s])))))) {
+
+                            lineSegCoords[index] = new LineSegment(points[p], points[s]);
+                            index++;
+                        }
+                    }
+                }
+            }
+        }
+        // finds all line segments containing 4 points
+    }
+
+    public int numberOfSegments() {
+        // the number of line segments
+        return lineSegs;
+    }
+
+    public LineSegment[] segments() {
+        // the line segments
+        return lineSegCoords;
+    }
 }

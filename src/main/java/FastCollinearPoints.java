@@ -8,6 +8,7 @@
  *   Think of p as the origin.
  *   - For each other point q, determine the slope it makes with p.
  *   - Sort the points according to the slopes they makes with p.
+ *      -Use Arrays.sort with your slopeOrder comparator
  *   - Check if any 3 (or more) adjacent points in 
  *      the sorted order have equal slopes with respect to p. 
  *      If so, these points, together with p, are collinear.
