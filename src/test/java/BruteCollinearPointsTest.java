@@ -30,7 +30,7 @@ public class BruteCollinearPointsTest {
 
   @Test
   public void testNumberOfSegments() {
-    fail("Not yet implemented");
+
   }
 
   @Test

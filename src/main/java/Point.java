@@ -91,7 +91,7 @@ public class Point implements Comparable<Point> {
 
     /**
      * Compares two points by the slope they make with this point.
-     * The slope is defined as in the slopeTo() method.
+     * The slope is defined as in the slopeTo() method.  
      *
      * @return the Comparator that defines this ordering on points
      */

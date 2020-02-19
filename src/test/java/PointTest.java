@@ -3,6 +3,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class PointTest {
   Point p5_7, p10_10, p1_1;
   @Before
@@ -57,7 +60,7 @@ public class PointTest {
   @Test
   public void testCompareToEqual() {
     Point p10_10_2 = new Point(10, 10);
-    assertTrue(p10_10_2.compareTo(p10_10) == 0);
+    assertEquals(0, p10_10_2.compareTo(p10_10));
   }
 
   @Test
@@ -79,7 +82,25 @@ public class PointTest {
 
   @Test
   public void testSlopeOrder() {
-
+    Point[] arr = new Point[7];
+    Point p0_0 = new Point(0,0);
+    Comparator<Point> comp = p0_0.slopeOrder();
+    Point p1_1 = new Point(1,1);// slope of 1
+    arr[0] = p1_1;
+    Point p1_3  = new Point(1,3); // slope of 3
+    arr[1] = p1_3;
+    Point p5_4  = new Point(5,4);// 0.8
+    arr[2] = p5_4;
+    Point p8_1  = new Point(8,1); // 0.125
+    arr[3] = p8_1;
+    Point p9_3  = new Point(9,3);// 0.333
+    arr[4] = p9_3;
+    Point p2_5  = new Point(2,5); //2.5
+    arr[5] = p2_5;
+    Point p3_1  = new Point(3,1);// 0.333
+    arr[6] = p3_1;
+    Arrays.sort(arr,comp);
+    System.out.println(Arrays.toString(arr));
   }
 
 }
