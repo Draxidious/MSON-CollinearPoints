@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /*************************************************************************
  *  Compilation:  javac-algs4 FastCollinearPoints.java
  *  Execution:    none
@@ -15,18 +17,38 @@
  *
  *************************************************************************/
 public class FastCollinearPoints {
-   
-  public FastCollinearPoints(Point[] points) {
-     // finds all line segments containing 4 points
-   }
-   
-   public int numberOfSegments() {
-     // the number of line segments
-     return 0;
-   }
-   
-   public LineSegment[] segments() {
-     // the line segments
-     return null;
-   }
+    private int lineSegs = 0;
+    private LineSegment[] lineSegCoords;
+
+    public FastCollinearPoints(Point[] points) {
+        lineSegCoords = new LineSegment[points.length];
+        int index = 0;
+        for (int i = 0; i < points.length; i++) {
+            Point[] adjpoints = new Point[points.length - i];
+            for (int x = i; x < points.length; x++) {
+                adjpoints[i] = adjpoints[x];
+            }
+            Arrays.sort(adjpoints, points[i].slopeOrder());
+            for (int y = 0; y < adjpoints.length - 3; y++) {
+                int move = 1;
+                while (points[i].slopeTo(adjpoints[y]) == points[i].slopeTo(adjpoints[y + move])) {
+                    move++;
+                }
+                if (move >= 3) {
+                    lineSegCoords[index] = new LineSegment(points[i], adjpoints[y + move]);
+                    index++;
+                }
+
+            }
+        }
+
+    }
+
+    public int numberOfSegments() {
+        return lineSegs;
+    }
+
+    public LineSegment[] segments() {
+        return lineSegCoords;
+    }
 }
