@@ -17,7 +17,7 @@ import java.util.Arrays;
  *
  *************************************************************************/
 public class FastCollinearPoints {
-    private int lineSegs = 0;
+
     private LineSegment[] lineSegCoords;
 
     public FastCollinearPoints(Point[] points) {
@@ -45,7 +45,7 @@ public class FastCollinearPoints {
     }
 
     public int numberOfSegments() {
-        return lineSegs;
+        return lineSegCoords.length;
     }
 
     public LineSegment[] segments() {
