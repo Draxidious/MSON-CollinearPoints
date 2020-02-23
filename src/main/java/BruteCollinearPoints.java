@@ -1,4 +1,3 @@
-import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -16,7 +15,13 @@ import java.util.Arrays;
  *
  *************************************************************************/
 public class BruteCollinearPoints {
+    /**
+     * Coordinates of LineSegments.
+     */
     private LineSegment[] lineSegCoords;
+    /**
+     * ArrayList of Line Segments.
+     */
     private ArrayList<LineSegment> segs;
     public BruteCollinearPoints(Point[] points) {
         if (points == null) throw new IllegalArgumentException("Null point array");

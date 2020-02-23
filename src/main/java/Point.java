@@ -99,6 +99,9 @@ public class Point implements Comparable<Point> {
         return new SlopeComparator();
     }
 
+    /**
+     * Comparator for pointclass.
+     */
     private class SlopeComparator implements Comparator<Point> {
         @Override
         public int compare(Point point1, Point point2) {
@@ -124,6 +127,7 @@ public class Point implements Comparable<Point> {
 
     /**
      * Unit tests the Point data type.
+     * @param args arg
      */
     public static void main(String[] args) {
         /* YOUR CODE HERE */
