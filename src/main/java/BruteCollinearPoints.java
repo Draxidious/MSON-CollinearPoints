@@ -62,7 +62,7 @@ public class BruteCollinearPoints {
         return false;
     }
 
-    public boolean hasDup(Point[] points) {
+    private boolean hasDup(Point[] points) {
         Point[] pointcopy = Arrays.copyOf(points, points.length);
         Arrays.sort(pointcopy);
 
