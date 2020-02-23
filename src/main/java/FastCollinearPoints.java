@@ -24,7 +24,8 @@ public class FastCollinearPoints {
     private LineSegment[] lineSegCoords;
 
     public FastCollinearPoints(Point[] points) {
-        if (points == null || hasNull(points)) throw new IllegalArgumentException("Null point array");
+        if (points == null || hasNull(points) || hasDup(points))
+            throw new IllegalArgumentException("Null point array");
         Point[] pointsCopy = Arrays.copyOf(points, points.length);
         ArrayList<LineSegment> segs = new ArrayList<>();
         Arrays.sort(pointsCopy);
@@ -82,6 +83,20 @@ public class FastCollinearPoints {
     private boolean hasNull(Point[] points) {
         for (Point p : points) {
             if (p == null) return true;
+        }
+        return false;
+    }
+
+    private boolean hasDup(Point[] points) {
+        Arrays.sort(points);
+        Point prev = null;
+        for (Point p : points) {
+            if (prev == null) {
+                prev = p;
+            } else if (p == prev) {
+                return true;
+            }
+
         }
         return false;
     }
