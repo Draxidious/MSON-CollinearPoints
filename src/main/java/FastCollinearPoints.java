@@ -79,7 +79,7 @@ public class FastCollinearPoints {
 
     }
 
-    public boolean hasNull(Point[] points) {
+    private boolean hasNull(Point[] points) {
         for (Point p : points) {
             if (p == null) return true;
         }
