@@ -22,11 +22,15 @@ public class FastCollinearPoints {
      * LineSegment Coordinates.
      */
     private LineSegment[] lineSegCoords;
+    /**
+     * ArrayList for segments.
+     */
+    private ArrayList<LineSegment> segs;
 
     public FastCollinearPoints(Point[] points) {
         if (points == null || hasNull(points) || hasDup(points)) throw new IllegalArgumentException("Null point array");
         Point[] pointsCopy = Arrays.copyOf(points, points.length);
-        ArrayList<LineSegment> segs = new ArrayList<>();
+        segs = new ArrayList<>();
         Arrays.sort(pointsCopy);
         for (int i = 0; i < pointsCopy.length; i++) {
             Point[] adjpoints = Arrays.copyOf(pointsCopy, pointsCopy.length);
@@ -90,11 +94,11 @@ public class FastCollinearPoints {
         Point[] pointcopy = Arrays.copyOf(points, points.length);
         Arrays.sort(pointcopy);
         Point prev = null;
-        for (int i = 0; i < pointcopy.length; i++) {
-            if (prev != null && pointcopy[i].compareTo(prev) == 0) {
+        for (Point point : pointcopy) {
+            if (prev != null && point.compareTo(prev) == 0) {
                 return true;
             }
-            prev = pointcopy[i];
+            prev = point;
         }
         return false;
     }
@@ -106,6 +110,6 @@ public class FastCollinearPoints {
     }
 
     public LineSegment[] segments() {
-        return lineSegCoords;
+        return segs.toArray(new LineSegment[0]);
     }
 }

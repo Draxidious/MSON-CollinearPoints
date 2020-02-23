@@ -46,7 +46,7 @@ public class BruteCollinearPoints {
                 }
             }
         }
-        lineSegCoords = segs.toArray(new LineSegment[segs.size()]);
+        lineSegCoords = segs.toArray(new LineSegment[0]);
         // finds all line segments containing 4 points
     }
 
@@ -67,17 +67,17 @@ public class BruteCollinearPoints {
         Arrays.sort(pointcopy);
 
         Point prev = null;
-        for (int i = 0; i < pointcopy.length; i++) {
-            if (prev != null && pointcopy[i].compareTo(prev) == 0) {
+        for (Point point : pointcopy) {
+            if (prev != null && point.compareTo(prev) == 0) {
                 return true;
             }
-            prev = pointcopy[i];
+            prev = point;
         }
         return false;
     }
 
     public LineSegment[] segments() {
         // the line segments
-        return segs.toArray(new LineSegment[segs.size()]);
+        return segs.toArray(new LineSegment[0]);
     }
 }
