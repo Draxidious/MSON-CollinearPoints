@@ -91,12 +91,10 @@ public class FastCollinearPoints {
         Arrays.sort(points);
         Point prev = null;
         for (Point p : points) {
-            if (prev == null) {
-                prev = p;
-            } else if (p == prev) {
+           if (p == prev) {
                 return true;
             }
-
+            prev = p;
         }
         return false;
     }
