@@ -25,9 +25,9 @@ public class BruteCollinearPoints {
     private ArrayList<LineSegment> segs;
 
     public BruteCollinearPoints(Point[] points) {
-        if (points == null || hasNull(points) || hasDup(points))
-            throw new IllegalArgumentException("Null point array");
+        if (points == null || hasNull(points)) throw new IllegalArgumentException("Null point array");
         Point[] pointsCopy = Arrays.copyOf(points, points.length);
+        if (hasDup(pointsCopy)) throw new IllegalArgumentException("Invalid point array");
         Arrays.sort(pointsCopy);
         segs = new ArrayList<>();
         for (int p = 0; p < pointsCopy.length - 3; p++) {
