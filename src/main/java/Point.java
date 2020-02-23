@@ -12,9 +12,17 @@ import java.util.Comparator;
 
 import edu.princeton.cs.algs4.StdDraw;
 
+/**
+ * Point class.
+ */
 public class Point implements Comparable<Point> {
-
+    /**
+     * x coordinate of this point.
+     */
     private final int x;     // x-coordinate of this point
+    /**
+     * y coordinate of this point.
+     */
     private final int y;     // y-coordinate of this point
 
     /**
@@ -62,8 +70,10 @@ public class Point implements Comparable<Point> {
     public double slopeTo(Point that) {
         double x1 = that.x;
         double y1 = that.y;
-        if (x1 == x && y1 == y) return Double.NEGATIVE_INFINITY;
-        return (y1 - y) / (x1 - x);
+        if (x1 == x && y1 != y) return Double.POSITIVE_INFINITY;
+        double ret = (y1 - y) / (x1 - x);
+        if (ret == 0) ret = Math.abs(ret);
+        return ret;
     }
 
     /**
@@ -127,6 +137,7 @@ public class Point implements Comparable<Point> {
 
     /**
      * Unit tests the Point data type.
+     *
      * @param args arg
      */
     public static void main(String[] args) {

@@ -24,13 +24,15 @@ public class FastCollinearPoints {
     private LineSegment[] lineSegCoords;
 
     public FastCollinearPoints(Point[] points) {
+        if (points == null || hasNull(points)) throw new IllegalArgumentException("Null point array");
+        Point[] pointsCopy = Arrays.copyOf(points, points.length);
         ArrayList<LineSegment> segs = new ArrayList<>();
-        Arrays.sort(points);
-        for (int i = 0; i < points.length; i++) {
-            Point[] adjpoints = Arrays.copyOf(points, points.length);
+        Arrays.sort(pointsCopy);
+        for (int i = 0; i < pointsCopy.length; i++) {
+            Point[] adjpoints = Arrays.copyOf(pointsCopy, pointsCopy.length);
             Arrays.sort(adjpoints);
-            Arrays.sort(adjpoints, points[i].slopeOrder());
-            Point origin = points[i];
+            Arrays.sort(adjpoints, pointsCopy[i].slopeOrder());
+            Point origin = pointsCopy[i];
             Double slopComp = null; // used to compare the slope
 
             int length = 1;
@@ -42,7 +44,7 @@ public class FastCollinearPoints {
             int startIndex = -1;
 
             for (int x = 0; x < adjpoints.length; x++) {
-                if (adjpoints[x] == points[i]) continue;
+                if (adjpoints[x] == pointsCopy[i]) continue;
                 if (slopComp == null) {
                     slopComp = origin.slopeTo(adjpoints[x]);
                     startIndex = x;
@@ -75,6 +77,13 @@ public class FastCollinearPoints {
         lineSegCoords = new LineSegment[segs.size()];
         lineSegCoords = segs.toArray(lineSegCoords);
 
+    }
+
+    public boolean hasNull(Point[] points) {
+        for (Point p : points) {
+            if (p == null) return true;
+        }
+        return false;
     }
 
     public int numberOfSegments() {

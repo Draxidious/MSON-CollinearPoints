@@ -23,19 +23,19 @@ public class BruteCollinearPoints {
      * ArrayList of Line Segments.
      */
     private ArrayList<LineSegment> segs;
-    public BruteCollinearPoints(Point[] points) {
-        if (points == null) throw new IllegalArgumentException("Null point array");
-        segs = new ArrayList<>();
 
-        Arrays.sort(points);
-        for (int p = 0; p < points.length - 3; p++) {
-            for (int q = p + 1; q < points.length - 2; q++) {
-                for (int r = q + 1; r < points.length - 1; r++) {
-                    for (int s = r + 1; s < points.length; s++) {
-                        if ((points[p].slopeTo(points[q]) == points[p].slopeTo(points[r]))
-                                && (points[p].slopeTo(points[q]) == points[p].slopeTo(points[s])
-                                && ((points[p].slopeTo(points[r]) == (points[p].slopeTo(points[s])))))) {
-                            LineSegment temp = new LineSegment(points[p], points[s]);
+    public BruteCollinearPoints(Point[] points) {
+        if (points == null || hasNull(points)) throw new IllegalArgumentException("Null point array");
+        Point[] pointsCopy = Arrays.copyOf(points, points.length);
+        segs = new ArrayList<>();
+        for (int p = 0; p < pointsCopy.length - 3; p++) {
+            for (int q = p + 1; q < pointsCopy.length - 2; q++) {
+                for (int r = q + 1; r < pointsCopy.length - 1; r++) {
+                    for (int s = r + 1; s < pointsCopy.length; s++) {
+                        if ((pointsCopy[p].slopeTo(pointsCopy[q]) == pointsCopy[p].slopeTo(pointsCopy[r]))
+                                && (pointsCopy[p].slopeTo(pointsCopy[q]) == pointsCopy[p].slopeTo(pointsCopy[s])
+                                && ((pointsCopy[p].slopeTo(pointsCopy[r]) == (pointsCopy[p].slopeTo(pointsCopy[s])))))) {
+                            LineSegment temp = new LineSegment(pointsCopy[p], pointsCopy[s]);
                             if (!segs.contains(temp)) {
                                 segs.add(temp);
                             }
@@ -52,6 +52,13 @@ public class BruteCollinearPoints {
     public int numberOfSegments() {
         // the number of line segments
         return lineSegCoords.length;
+    }
+
+    public boolean hasNull(Point[] points) {
+        for (Point p : points) {
+            if (p == null) return true;
+        }
+        return false;
     }
 
     public LineSegment[] segments() {
