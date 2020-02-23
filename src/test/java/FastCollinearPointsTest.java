@@ -54,7 +54,7 @@ public class FastCollinearPointsTest {
     arr[6] = p2_5;
     Point p3_1 = new Point(2, 2);
     arr[7] = p3_1;
-    BruteCollinearPoints bcptest = new BruteCollinearPoints(arr);
+    FastCollinearPoints bcptest = new FastCollinearPoints(arr);
     assertEquals(2,bcptest.numberOfSegments());
     // add one that directly tests segments when you get the stuff working
 

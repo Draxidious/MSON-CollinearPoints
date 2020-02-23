@@ -1,5 +1,6 @@
 import javax.sound.sampled.Line;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /*************************************************************************
  *  Compilation:  javac-algs4 BruteCollinearPoints.java
@@ -16,25 +17,30 @@ import java.util.ArrayList;
  *************************************************************************/
 public class BruteCollinearPoints {
     private LineSegment[] lineSegCoords;
-
+    private ArrayList<LineSegment> segs;
     public BruteCollinearPoints(Point[] points) {
-        ArrayList<LineSegment> segs = new ArrayList<>();
-        for (int p = 0; p < points.length; p++) {
-            for (int q = p + 1; q < points.length; q++) {
-                for (int r = q + 1; r < points.length; r++) {
+        if (points == null) throw new IllegalArgumentException("Null point array");
+        segs = new ArrayList<>();
+
+        Arrays.sort(points);
+        for (int p = 0; p < points.length - 3; p++) {
+            for (int q = p + 1; q < points.length - 2; q++) {
+                for (int r = q + 1; r < points.length - 1; r++) {
                     for (int s = r + 1; s < points.length; s++) {
                         if ((points[p].slopeTo(points[q]) == points[p].slopeTo(points[r]))
                                 && (points[p].slopeTo(points[q]) == points[p].slopeTo(points[s])
                                 && ((points[p].slopeTo(points[r]) == (points[p].slopeTo(points[s])))))) {
+                            LineSegment temp = new LineSegment(points[p], points[s]);
+                            if (!segs.contains(temp)) {
+                                segs.add(temp);
+                            }
 
-                            segs.add(new LineSegment(points[p], points[s]));
                         }
                     }
                 }
             }
         }
-        lineSegCoords = new LineSegment[segs.size()];
-        lineSegCoords = segs.toArray(lineSegCoords);
+        lineSegCoords = segs.toArray(new LineSegment[segs.size()]);
         // finds all line segments containing 4 points
     }
 
@@ -45,6 +51,6 @@ public class BruteCollinearPoints {
 
     public LineSegment[] segments() {
         // the line segments
-        return lineSegCoords;
+        return segs.toArray(new LineSegment[segs.size()]);
     }
 }

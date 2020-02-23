@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /*************************************************************************
@@ -21,26 +22,56 @@ public class FastCollinearPoints {
     private LineSegment[] lineSegCoords;
 
     public FastCollinearPoints(Point[] points) {
-        lineSegCoords = new LineSegment[points.length];
-        int index = 0;
+        ArrayList<LineSegment> segs = new ArrayList<>();
+        Arrays.sort(points);
         for (int i = 0; i < points.length; i++) {
-            Point[] adjpoints = new Point[points.length - i];
-            for (int x = i; x < points.length; x++) {
-                adjpoints[i] = adjpoints[x];
-            }
+            Point[] adjpoints = Arrays.copyOf(points, points.length);
+            Arrays.sort(adjpoints);
             Arrays.sort(adjpoints, points[i].slopeOrder());
-            for (int y = 0; y < adjpoints.length - 3; y++) {
-                int move = 1;
-                while (points[i].slopeTo(adjpoints[y]) == points[i].slopeTo(adjpoints[y + move])) {
-                    move++;
-                }
-                if (move >= 3) {
-                    lineSegCoords[index] = new LineSegment(points[i], adjpoints[y + move]);
-                    index++;
+            Point origin = points[i];
+            Double slopComp = null; // used to compare the slope
+
+            int length = 1;
+            /*
+             * StartIndex is the index in which the line started to build
+             * If the length is long enough, then the endpoint of segment
+             * equals adjpoints[x+length]
+             */
+            int startIndex = -1;
+
+            for (int x = 0; x < adjpoints.length; x++) {
+                if (adjpoints[x] == points[i]) continue;
+                if (slopComp == null) {
+                    slopComp = origin.slopeTo(adjpoints[x]);
+                    startIndex = x;
+                    length++;
+                } else if (origin.slopeTo(adjpoints[x]) == slopComp) {
+                    length++;
+                    if (x + 1 == adjpoints.length) {
+                        if (length >= 4) {
+                            if (adjpoints[startIndex].compareTo(origin) > 0) {
+                                segs.add(new LineSegment(origin, adjpoints[startIndex + length - 2]));
+                            }
+                        }
+                    }
+                    // if it gets here, then the slope was different
+                } else if (length >= 4) {
+                    if (adjpoints[startIndex].compareTo(origin) > 0) {
+                        segs.add(new LineSegment(origin, adjpoints[startIndex + length - 2]));
+                    }
+                    slopComp = origin.slopeTo(adjpoints[x]);
+                    startIndex = x;
+                    length = 2;
+                } else {
+                    slopComp = origin.slopeTo(adjpoints[x]);
+                    startIndex = x;
+                    length = 2;
                 }
 
             }
         }
+        lineSegCoords = new LineSegment[segs.size()];
+        lineSegCoords = segs.toArray(lineSegCoords);
 
     }
 
