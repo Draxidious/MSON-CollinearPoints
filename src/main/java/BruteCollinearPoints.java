@@ -24,6 +24,10 @@ public class BruteCollinearPoints {
      */
     private ArrayList<LineSegment> segs;
 
+    /**
+     * Solves collinear points problem with brute force.
+     * @param points points to be passed
+     */
     public BruteCollinearPoints(Point[] points) {
         if (points == null || hasNull(points) || hasDup(points)) throw new IllegalArgumentException("Null point array");
         Point[] pointsCopy = Arrays.copyOf(points, points.length);
@@ -50,11 +54,20 @@ public class BruteCollinearPoints {
         // finds all line segments containing 4 points
     }
 
+    /**
+     * Returns number of segments.
+     * @return num of segments
+     */
     public int numberOfSegments() {
         // the number of line segments
         return lineSegCoords.length;
     }
 
+    /**
+     * Checks if the point array has a null element.
+     * @param points points to be passed in
+     * @return true if has a null element
+     */
     private boolean hasNull(Point[] points) {
         for (Point p : points) {
             if (p == null) return true;
@@ -62,6 +75,11 @@ public class BruteCollinearPoints {
         return false;
     }
 
+    /**
+     * Checks if point array has a duplicate.
+     * @param points points to be passed
+     * @return true if has a duplicate
+     */
     private boolean hasDup(Point[] points) {
         Point[] pointcopy = Arrays.copyOf(points, points.length);
         Arrays.sort(pointcopy);
@@ -75,7 +93,10 @@ public class BruteCollinearPoints {
         }
         return false;
     }
-
+    /**
+     * Returns specfic coordinates of segments.
+     * @return line segment array
+     */
     public LineSegment[] segments() {
         // the line segments
         return segs.toArray(new LineSegment[0]);

@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -27,6 +28,10 @@ public class FastCollinearPoints {
      */
     private ArrayList<LineSegment> segs;
 
+    /**
+     * Main constructor to solve collinear points faster.
+     * @param points points
+     */
     public FastCollinearPoints(Point[] points) {
         if (points == null || hasNull(points) || hasDup(points)) throw new IllegalArgumentException("Null point array");
         Point[] pointsCopy = Arrays.copyOf(points, points.length);
@@ -83,13 +88,22 @@ public class FastCollinearPoints {
 
     }
 
+    /**
+     * Checks if point array has a null element.
+     * @param points points
+     * @return true if has null
+     */
     private boolean hasNull(Point[] points) {
         for (Point p : points) {
             if (p == null) return true;
         }
         return false;
     }
-
+    /**
+     * Checks if point array has a duplicate.
+     * @param points points to be passed
+     * @return true if has a duplicate
+     */
     private boolean hasDup(Point[] points) {
         Point[] pointcopy = Arrays.copyOf(points, points.length);
         Arrays.sort(pointcopy);
@@ -104,11 +118,17 @@ public class FastCollinearPoints {
     }
 
 
-
+    /**
+     * Returns number of segments.
+     * @return num of segments
+     */
     public int numberOfSegments() {
         return lineSegCoords.length;
     }
-
+    /**
+     * Returns specfic coordinates of segments.
+     * @return line segment array
+     */
     public LineSegment[] segments() {
         return segs.toArray(new LineSegment[0]);
     }

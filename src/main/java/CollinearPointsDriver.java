@@ -24,7 +24,10 @@ import edu.princeton.cs.algs4.StdOut;
  * CollinearPointsDriver.
  */
 public class CollinearPointsDriver {
-
+    /**
+     * Main method of driver.
+     * @param args args
+     */
     public static void main(String[] args) {
 
         // read the n points from a file

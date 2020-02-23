@@ -50,12 +50,12 @@ public class FastCollinearPointsTest {
     arr[4] = p8_1;
     Point p9_3 = new Point(4, 4);
     arr[5] = p9_3;
-    Point p2_5 = new Point(3, 3);
+    Point p2_5 = new Point(7, 7);
     arr[6] = p2_5;
-    Point p3_1 = new Point(2, 2);
+    Point p3_1 = new Point(6, 6);
     arr[7] = p3_1;
     FastCollinearPoints bcptest = new FastCollinearPoints(arr);
-    assertEquals(2,bcptest.numberOfSegments());
+    assertEquals(1,bcptest.numberOfSegments());
     // add one that directly tests segments when you get the stuff working
 
   }
