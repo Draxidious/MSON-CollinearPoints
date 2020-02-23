@@ -90,14 +90,16 @@ public class FastCollinearPoints {
         Point[] pointcopy = Arrays.copyOf(points, points.length);
         Arrays.sort(pointcopy);
         Point prev = null;
-        for (Point p : pointcopy) {
-            if (p == prev) {
+        for (int i = 0; i < pointcopy.length; i++) {
+            if (pointcopy[i] == prev) {
                 return true;
             }
-            prev = p;
+            prev = pointcopy[i];
         }
         return false;
     }
+
+
 
     public int numberOfSegments() {
         return lineSegCoords.length;
